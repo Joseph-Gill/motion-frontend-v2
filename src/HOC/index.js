@@ -24,3 +24,8 @@ export default WrappedComponent => {
     });
     return connect(mapStateToProps)(AuthComponent);
 }
+
+// TODO consider replacing this HOC with a simple redirect in the <App> using the same kind of logic inside a useEffect
+// TODO refresh token every so often to prevent access from expiring
+// TODO when token expired, try refresh first before redirect to login page
+// TODO needs a check to redirect from baseURL to either /feed or /login

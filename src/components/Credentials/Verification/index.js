@@ -119,7 +119,12 @@ const Verification = ({ fieldErrors, nonFieldErrors, networkError, registrationV
         if (response.status < 400) {
             history.push(`/auth/login`);
         }
-    }
+        // const loginData = { email: data.email, password: data.password };
+        // TODO make loginAction and redirect work
+        // const response = await loginAction(loginData);
+        // if (response.status === 200) history.push('feed/');
+        // console.log("REG VER SUCCESS");
+    };
 
     return <>
         <TopRightWrapper />

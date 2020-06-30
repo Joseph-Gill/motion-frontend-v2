@@ -26,10 +26,7 @@ export const logout = () => {
 
 export const loginAction = ({email, password}) => async (dispatch) => {
     try {
-        // debugger
         const response = await Axios.post('auth/token/',{email, password});
-        console.log('response in LoginAction', response)
-        console.log("LOGIN ACTION RESPONSE", response);
         const token = response.data.access;
         const user = response.data.user;
         if (token) {
