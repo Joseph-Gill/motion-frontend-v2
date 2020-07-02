@@ -1,0 +1,15 @@
+.my-masonry-grid {
+    display: flex;
+    margin-left: -20px; /* gutter size offset */
+    /* width: auto; */
+    max-width: 1180px;
+  }
+  .my-masonry-grid_column {
+    padding-left: 20px; /* gutter size */
+    background-clip: padding-box;
+  }
+
+  .my-masonry-grid_column > .post { /* change div to reference your elements you put in <Masonry> */
+     /*background: grey;*/
+    margin-bottom: 20px !important;
+  }

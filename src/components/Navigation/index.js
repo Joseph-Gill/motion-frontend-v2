@@ -117,7 +117,7 @@ const Navigation = ({children, avatar, getMyProfileAction, history}) => {
                     <MotionTitle>Motion</MotionTitle>
                 </NavSectionLeft>
                 <NavSectionMiddle>
-                    <Link to={'/feed'}>
+                    <Link to={'/'}>
                         <PostWrapper>
                             <Icon src={postLogo}/>
                             <TabTitles>Posts</TabTitles>
