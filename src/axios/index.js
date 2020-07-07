@@ -9,7 +9,7 @@ const Axios = axios.create({
 });
 
 Axios.defaults.baseURL = baseUrl;
-Axios.defaults.headers.post['content-type'] = 'application/json';
+Axios.defaults.headers.post['Content-Type'] = 'application/json';
 // Intercept every Axios request and include the Bearer token stored in redux
 // this keeps your fetches DRY, as you need to include the Bearer with every request anyway (excluding registration)
 

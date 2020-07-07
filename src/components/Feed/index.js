@@ -50,11 +50,11 @@ const Feed = ({activeFilterId, posts, getPostsAction, isEmpty}) => {
 
 const mapStateToProps = (state) => {
     const feedReducer = state.feedReducer;
-    const isEmpty = feedReducer[feedReducer.filter.getActiveNamespace() + 'sEmpty'];
+    const isEmpty = feedReducer[feedReducer.filter.getActiveNamespace() + 'isEmpty'];
     return {
         activeFilterId: feedReducer.filter.activeFilterId,
         posts: feedReducer.getFilteredPosts(),
-        isEmpty: isEmpty
+        isEmpty: isEmpty,
     };
 };
 

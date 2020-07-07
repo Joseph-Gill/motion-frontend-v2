@@ -72,7 +72,7 @@ const SearchInput = styled(Input)`
 // Component
 
 // Add the filterIds you want to display as a <Tab> to this array (you can find them in FILTER_ENTRIES)
-const filterIds = ['allPosts', 'likedPosts', 'friendsPosts', 'followingPosts'];
+const filterIds = ['allPosts', 'myPosts', 'likedPosts', 'friendsPosts', 'followingPosts'];
 
 const FilterPosts = ({filters, activeFilterId, setActiveFilter}) => {
     const handleChangeTab = (e) => { setActiveFilter(e.target.dataset['filter_id']); }

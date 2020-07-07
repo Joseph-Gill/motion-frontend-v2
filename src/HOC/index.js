@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
 export default WrappedComponent => {
     const AuthComponent = (props) => {
-        const { authenticated, history, location } = props;
+        const {authenticated, history, location} = props;
 
         useEffect(() => {
             const userRedirect = () => {
-
                 const path = location.pathname;
-                console.log("Test", path);
                 if (path.includes('auth') && authenticated) {
                     history.push('/');
                 } else if (!path.includes('auth') && !authenticated) {
@@ -23,10 +21,9 @@ export default WrappedComponent => {
         return <WrappedComponent {...props} />
     }
 
-    const mapStateToProps = (state) => ({ authenticated: state.loginReducer.authenticated });
+    const mapStateToProps = (state) => ({authenticated: state.loginReducer.authenticated});
     return connect(mapStateToProps)(AuthComponent);
 }
-
 
 
 // TODO consider replacing this HOC with a simple redirect in the <App> using the same kind of logic inside a useEffect

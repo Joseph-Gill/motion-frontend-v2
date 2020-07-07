@@ -134,26 +134,18 @@ export const acceptFriendRequestAction = receiver => async (dispatch, useState) 
     };
 };
 
-export const userUpdateImageAction = (files) => async (dispatch, useState) => {
-    const formData = new FormData();
-    files.forEach((file, i) => {
-        formData.append('avatar', file);
-    });
-    const url = new URL(`https://motion.propulsion-home.ch/backend/api/users/me/`);
-    const headers = {
-        Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc5MzY5MjU3LCJqdGkiOiIwZjkxZjU3MGVmZmE0NWNlODBjOWFjNTQwZDBiZTJkOSIsInVzZXJfaWQiOjR9.e5C8Z7PxDjkMvNiukQzRnEXTglQL-PdCrMLzGtKzW5M'
-    };
-    fetch(url, {
-        headers,
-        method: 'PATCH',
-        body: formData
-    })
-        .then(res => res.json())
-        .then(updatedUser => {
-            dispatch(storeMyProfileData(updatedUser))
-            return updatedUser
-        })
-        .catch(err => console.log(err));
-}
+export const userUpdateImageAction = (data) => async (dispatch, useState) => {
+    // const formData = new FormData();
+    // files.forEach((file, i) => {
+    //     formData.append('avatar', file);
+    // });
+    try {
+        const response = await Axios.put(`/users/me/`, data);
+        dispatch(storeMyProfileData(response.data));
+        return response;
+    } catch (e) {
+        console.error(e.response);
+        return e;
+    }
+};
 

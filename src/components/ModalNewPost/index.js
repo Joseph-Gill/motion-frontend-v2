@@ -79,7 +79,11 @@ const SendButtonContainer = styled(GradientCircleContainer)`
 const modalNamespace = 'ModalNewPost'; // a namespace called "ModalNewPost" where data is stored about this modal in redux modalReducer
 
 const ModalPostDetail = ({ setModal, createPostAction, isVisible, modalData, avatar, firstname }) => {
-    const [content, setContent] = useState('');
+    const [postInfo, setPostInfo] = useState({
+        content:'',
+        images: null,
+        imageUrls: null,
+    });
     const [rows, setRows] = useState(0);
     const textarea = useRef(null);
 
@@ -88,27 +92,29 @@ const ModalPostDetail = ({ setModal, createPostAction, isVisible, modalData, ava
     const handleClose = () => { setModal(modalNamespace, { shared: null }, false) };
 
     const createPost = async () => {
-        const data = {
-            content,
-            shared: {shared: modalData.shared.id, content: modalData.shared.content}
-            // sharing post only works via admin atm
-            // Django expects a dictionary to be send, like this: shared: {shared: 41, content: "content of shared post"}
-            // this results in a server error. Ideally you should be able to send: shared: 51 to reference postId
-        };
-        console.log(data)
+        const postData = new FormData();
+        postData.append('content', postInfo.content);
+        postData.append('shared_post', modalData.shared.id);
+        if (postInfo.images) {
+            for (const file of postInfo.images) {
+                postData.append('images', file)
+            }
+        }
         try {
-            const response = await createPostAction(data);
+            const response = await createPostAction(postData);
             if (response.status === 201) {
-                setContent('');
+                setPostInfo({...postInfo, content: ''});
                 setModal(modalNamespace, {shared: null}, false)
+                return response
             }
         } catch (e) {
             console.log('Error in create post', e)
+            return e
         }
     };
 
     const handleInput = (e) => {
-        setContent(e.target.value);
+        setPostInfo({...postInfo, content: e.target.value});
         const textRowCount = textarea.current ? textarea.current.value.split("\n").length : 0;
         if (textRowCount <= 15) {
             setRows(textRowCount + 1);
@@ -118,7 +124,6 @@ const ModalPostDetail = ({ setModal, createPostAction, isVisible, modalData, ava
     const handleCreatePost = (e) => {
         e.preventDefault();
         createPost();
-
     };
 
     return <>
@@ -129,7 +134,7 @@ const ModalPostDetail = ({ setModal, createPostAction, isVisible, modalData, ava
                         <IconAbsolute src={avatar || 'https://via.placeholder.com/50x50'} />
                         {/* Textareas are not automatically adjusting height: https://stackoverflow.com/a/56008181 */}
                         <TextArea
-                            value={content}
+                            value={postInfo.content}
                             placeholder={`what's on your mind ${firstname}?`}
                             onChange={handleInput}
                             ref={textarea}

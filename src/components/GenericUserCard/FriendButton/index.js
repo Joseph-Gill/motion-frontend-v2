@@ -46,7 +46,6 @@ const FriendButton = ({ user, dispatch }) => {
     dispatch(friendRequestAction(user));
   };
 
-  // ACCEPT FRIEND REQUEST WANTS THE FR-REQUEST ID, NOT THE USER ID. SHOULD WE CHANGE THE BACKEND? OR HOW DO WE GET THE FR ID?
   const acceptFriendRequestHandler = user => {
     dispatch(acceptFriendRequestAction(user));
   };

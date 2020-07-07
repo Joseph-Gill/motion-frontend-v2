@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from "styled-components";
-import { rem } from "polished";
-import { connect } from 'react-redux';
+import {rem} from "polished";
+import {connect} from 'react-redux';
 import Hobby from './Hobby';
-import { UserIcon } from "../../style/GlobalIcons";
-import { Button } from '../../style/GlobalButtons';
+import {UserIcon} from "../../style/GlobalIcons";
+import {Button} from '../../style/GlobalButtons';
 import FriendButton from './FriendButton';
 import defaultAvatar from '../../assets/defaultAvatar.png';
-import { toggleFollowAction } from '../../store/actions/userActions';
+import {toggleFollowAction} from '../../store/actions/userActions';
 
 // Styling
 
@@ -83,34 +83,36 @@ const HobbiesContainer = styled.div`
 
 // Component
 
-const GenericUserCard = ({ user, dispatch }) => {
-  const fullName = `${user.first_name} ${user.last_name}`
-  const isFollowing = user.logged_in_user_is_following;
+const GenericUserCard = ({user, dispatch}) => {
+    const fullName = `${user.first_name} ${user.last_name}`;
+    const isFollowing = user.logged_in_user_is_following;
 
-  const followToggleHandler = userId => {
-    dispatch(toggleFollowAction(userId))
-  };
+    const followToggleHandler = userId => {
+        dispatch(toggleFollowAction(userId))
+    };
 
-  return (
-    <UserCardContainer>
-      <CustomUserIcon src={user.avatar ? user.avatar : defaultAvatar} />
-      <UserInfoContainer>
-        <UserName>{fullName !== ' ' ? fullName : user.username}</UserName>
-        <UserLocation>{user.location}</UserLocation>
-      </UserInfoContainer>
-      <RelationButtonsContainer>
-        {isFollowing
-          ? <FollowButtonActive onClick={() => followToggleHandler(user.id)}><ButtonText>UNFOLLOW</ButtonText></FollowButtonActive>
-          : <FollowButton onClick={() => followToggleHandler(user.id)}><ButtonText>FOLLOW</ButtonText></FollowButton>
-        }
-        <FriendButton user={user} />
-      </RelationButtonsContainer>
-      <AboutUser>{user.about_me}</AboutUser>
-      <HobbiesContainer>
-        {user.things_user_likes.map((hobby, index) => <Hobby hobby={hobby} key={index} />)}
-      </HobbiesContainer>
-    </UserCardContainer>
-  );
+    return (
+        <UserCardContainer>
+            <CustomUserIcon
+                src={user.avatar ? user.avatar : `https://eu.ui-avatars.com/api/?name=${user.first_name}+${user.last_name}`}/>
+            <UserInfoContainer>
+                <UserName>{fullName !== ' ' ? fullName : user.username}</UserName>
+                <UserLocation>{user.location}</UserLocation>
+            </UserInfoContainer>
+            <RelationButtonsContainer>
+                {isFollowing
+                    ? <FollowButtonActive onClick={() => followToggleHandler(user.id)}><ButtonText>UNFOLLOW</ButtonText></FollowButtonActive>
+                    : <FollowButton
+                        onClick={() => followToggleHandler(user.id)}><ButtonText>FOLLOW</ButtonText></FollowButton>
+                }
+                <FriendButton user={user}/>
+            </RelationButtonsContainer>
+            <AboutUser>{user.about_me}</AboutUser>
+            <HobbiesContainer>
+                {user.things_user_likes.map((hobby, index) => <Hobby hobby={hobby} key={index}/>)}
+            </HobbiesContainer>
+        </UserCardContainer>
+    );
 };
 
 export default connect()(GenericUserCard);

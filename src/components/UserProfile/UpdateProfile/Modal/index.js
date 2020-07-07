@@ -18,6 +18,8 @@ const MainContainer = styled.div`
     justify-content: space-around;
     position: absolute;
     top: 200px;
+    z-index: 1;
+    background-color: white;
 `;
 
 const Option = styled.label`
@@ -41,11 +43,16 @@ const Icon = styled.img`
 const OptionText = styled.span`
 `;
 
-const Modal = ({ dispatch }) => {
+const Modal = ({ dispatch, username, target }) => {
 
     const uploadImageHandler = (e) => {
         const files = Array.from(e.target.files);
-        dispatch(userUpdateImageAction(files));
+        const formData = new FormData();
+        files.forEach((file) => {
+            formData.append(target, file);
+        });
+        formData.append('username', username);
+        dispatch(userUpdateImageAction(formData));
     };
 
     return (

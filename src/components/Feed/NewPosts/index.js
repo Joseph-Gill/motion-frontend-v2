@@ -60,7 +60,7 @@ const NewPost = ({me, setModal}) => {
 
     return <>
         <NewPostContainer>
-            <BigUserIcon src={me.avatar ? me.avatar : ''}/>
+            <BigUserIcon src={me.avatar ? me.avatar : `https://eu.ui-avatars.com/api/?name=${me.first_name}+${me.last_name}`}/>
             <Input
                 onClick={handleOpenModalNewPost}
                 value={content}

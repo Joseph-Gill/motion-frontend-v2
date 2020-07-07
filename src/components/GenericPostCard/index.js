@@ -149,10 +149,10 @@ const Post = ({loggedInUser, post, likePostAction, setModal}) => {
 
     const handleLikePost = id => {
         likePostAction(id)
+
     };
 
     const handleOpenModalNewPost = e => {
-        debugger
         console.log('share');
         setModal('ModalNewPost', {shared: post}, true);
     };
@@ -177,7 +177,7 @@ const Post = ({loggedInUser, post, likePostAction, setModal}) => {
                         <EmojioneV4 size={32} text={content} />
                     </PostMessage>
                     <PostImages post={post} />
-                    <SharedPost post={shared} />
+                    <SharedPost post={post.shared_post} />
                 </ContentSection>
                 <BottomSection>
                     <LeftBottomWrappper>

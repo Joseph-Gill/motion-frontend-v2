@@ -37,7 +37,7 @@ export const signUpAction = email => async (dispatch) => {
 
 export const registrationVerificationAction = data => async (dispatch) => {
     try {
-        const response = await Axios.patch('auth/registration/validation', {...data});
+        const response = await Axios.post('auth/registration/validation/', {...data});
         return response
     } catch (e) {
         //Network Error

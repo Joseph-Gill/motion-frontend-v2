@@ -23,7 +23,7 @@ const TopContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 35%;
+    height: 50%;
 `;
 
 const CustomButton = styled(Button)`
@@ -51,7 +51,7 @@ const CustomUserIcon = styled(UserIcon)`
   border: 1px rgba(0,0,0,0.2) solid;
 `;
 
-const LeftContainer = ({ userIcon, submitUpdateUserHandler }) => {
+const LeftContainer = ({ userIcon, submitUpdateUserHandler, username }) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -59,7 +59,8 @@ const LeftContainer = ({ userIcon, submitUpdateUserHandler }) => {
             <TopContainer>
                 <CustomUserIcon src={userIcon} />
                 <UpdateImageButton onClick={() => setShowModal(!showModal)}>UPDATE IMAGE</UpdateImageButton>
-                {showModal && <Modal />}
+                {showModal && <Modal username={username} target='avatar'/>}
+                <UpdateImageButton >UPDATE BANNER</UpdateImageButton>
             </TopContainer>
 
             <BottomContainer>
@@ -72,7 +73,8 @@ const LeftContainer = ({ userIcon, submitUpdateUserHandler }) => {
 
 const mapStateToProps = state => {
     return {
-        userIcon: state.userProfileReducer.meData.avatar
+        userIcon: state.userProfileReducer.meData.avatar,
+        username: state.userProfileReducer.meData.username
     };
 };
 

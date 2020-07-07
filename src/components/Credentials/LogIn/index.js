@@ -47,8 +47,8 @@ const SignInButton = styled(GradientButton)`
 // Component
 
 const Login = ({error, loginAction, history, match}) => {
-    const [email, setEmail] = useState('raloxew683@lerwfv.com');
-    const [password, setPassword] = useState('password01');
+    const [email, setEmail] = useState('rahjen@gmail.com');
+    const [password, setPassword] = useState('josephloveszoey');
 
     const inputHandler = (e, fn) => {
         fn(e.currentTarget.value)

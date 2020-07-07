@@ -151,7 +151,7 @@ const Navigation = ({children, avatar, getMyProfileAction, history}) => {
 };
 
 const mapStateToProps = state => ({
-    avatar: state.userProfileReducer.meData.avatar || ''
+    avatar: state.userProfileReducer.meData.avatar || `https://eu.ui-avatars.com/api/?name=${state.userProfileReducer.meData.first_name}+${state.userProfileReducer.meData.last_name}`
 });
 
 export default withRouter(connect(mapStateToProps, {getMyProfileAction})(Navigation));

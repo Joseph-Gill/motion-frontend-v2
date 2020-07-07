@@ -62,10 +62,10 @@ export const getPostsAction = (filterIdOverride = null) => async (dispatch, getS
 export const createPostAction = data => async (dispatch, getState) => {
     try {
         const response = await Axios.post('/social/posts/', data);
-        dispatch(addPostToList(response.data))
+        dispatch(addPostToList(response.data));
         return response
     } catch (e) {
-        dispatch(feedError(`Content: ${e.response.data.content.join(' ')}`))
+        // dispatch(feedError(`Content: ${e.response.data.content.join(' ')}`))
         return e.response
     }
 };

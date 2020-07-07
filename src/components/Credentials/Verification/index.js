@@ -8,7 +8,8 @@ import {rem} from 'polished';
 import {Input} from "../../../style/GlobalInputs";
 import {registrationVerificationAction} from "../../../store/actions/registrationActions";
 import Error from '../../Error';
-
+import {loginAction} from "../../../store/actions/loginActions";
+import {useDispatch} from "react-redux";
 // Styling
 
 const VerificationTitle = styled(Title)`
@@ -69,26 +70,32 @@ const validationFields = [
     {
         name: 'email',
         placeholder: 'Email',
+        type: 'email'
     },
     {
         name: 'username',
         placeholder: 'Username',
+        type: 'text'
     },
     {
         name: 'first_name',
         placeholder: 'First name',
+        type: 'text'
     },
     {
         name: 'last_name',
         placeholder: 'Last name',
+        type: 'text'
     },
     {
         name: 'password',
         placeholder: 'Password',
+        type: 'password',
     },
     {
         name: 'password_repeat',
         placeholder: 'Password repeat',
+        type: 'password',
     },
 ];
 
@@ -103,8 +110,9 @@ const Verification = ({ fieldErrors, nonFieldErrors, networkError, registrationV
         last_name: '',
         password: '',
         password_repeat: ''
-    })
+    });
 
+    const dispatch = useDispatch();
 
     const handleInput = e => {
         const name = e.target.name;
@@ -114,16 +122,13 @@ const Verification = ({ fieldErrors, nonFieldErrors, networkError, registrationV
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log('Data sent to API', data)
+        console.log(dispatch);
         const response = await registrationVerificationAction(data);
-        if (response.status < 400) {
-            history.push(`/auth/login`);
+        if (response.status === 201) {
+            const loginData = { email: data.email, password: data.password };
+            const loginResponse = await dispatch(loginAction(loginData));
+            if (loginResponse.status === 200) history.push('/')
         }
-        // const loginData = { email: data.email, password: data.password };
-        // TODO make loginAction and redirect work
-        // const response = await loginAction(loginData);
-        // if (response.status === 200) history.push('feed/');
-        // console.log("REG VER SUCCESS");
     };
 
     return <>
@@ -152,6 +157,8 @@ const Verification = ({ fieldErrors, nonFieldErrors, networkError, registrationV
                                         placeholder={item.placeholder}
                                         name={item.name}
                                         onChange={handleInput}
+                                        type={item.type}
+                                        // required
                                     />
                                     <Error errorMessage={fieldErrors[item.name]} />
                                 </ValidationInputContainer>
